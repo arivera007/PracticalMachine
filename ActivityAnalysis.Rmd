@@ -30,7 +30,7 @@ testSet <- cleanTest[,-removeIndex]
 ## Training...
 ```{r}
 mytrControl = trainControl(method = "cv", number = 4)
-#modelFit <- train(trainSet$classe ~.,data = trainSet, method="rf", trControl = mytrControl)
+modelFit <- train(trainSet$classe ~.,data = trainSet, method="rf", trControl = mytrControl)
 modelFit
 ```
 

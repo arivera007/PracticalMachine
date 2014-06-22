@@ -222,41 +222,50 @@ testSet &lt;- cleanTest[, -removeIndex]
 <h2>Training&hellip;</h2>
 
 <pre><code class="r">mytrControl = trainControl(method = &quot;cv&quot;, number = 4)
-# modelFit &lt;- train(trainSet$classe ~.,data = trainSet, method=&#39;rf&#39;,
-# trControl = mytrControl)
-modelFit
+modelFit &lt;- train(trainSet$classe ~ ., data = trainSet, method = &quot;rf&quot;, trControl = mytrControl)
 </code></pre>
 
-<pre><code>## Error: object &#39;modelFit&#39; not found
+<pre><code>## Loading required package: randomForest
+## randomForest 4.6-7
+## Type rfNews() to see new features/changes/bug fixes.
+</code></pre>
+
+<pre><code class="r">modelFit
+</code></pre>
+
+<pre><code>## Random Forest 
+## 
+## 13737 samples
+##    53 predictors
+##     5 classes: &#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (4 fold) 
+## 
+## Summary of sample sizes: 10301, 10303, 10303, 10304 
+## 
+## Resampling results across tuning parameters:
+## 
+##   mtry  Accuracy  Kappa  Accuracy SD  Kappa SD
+##   2     1         1      0.003        0.003   
+##   30    1         1      0.001        0.002   
+##   50    1         1      8e-04        0.001   
+## 
+## Accuracy was used to select the optimal model using  the largest value.
+## The final value used for the model was mtry = 27.
 </code></pre>
 
 <h2>Calculation the errors using the Cross Validation Set.</h2>
 
 <pre><code class="r">predicted &lt;- predict(modelFit, crossValidationSet)
+SampleError &lt;- sum(predicted == crossValidationSet$classe)/nrow(crossValidationSet)
 </code></pre>
 
-<pre><code>## Error: object &#39;modelFit&#39; not found
-</code></pre>
-
-<pre><code class="r">SampleError &lt;- sum(predicted == crossValidationSet$classe)/nrow(crossValidationSet)
-</code></pre>
-
-<pre><code>## Error: object &#39;predicted&#39; not found
-</code></pre>
-
-<h3>So the Out of Sample Error we get is:</h3>
-
-<pre><code>
-Error in eval(expr, envir, enclos) : object &#39;SampleError&#39; not found
-
-</code></pre>
+<p>So the Out of Sample Error we get is: 0.9981</p>
 
 <h2>Generating data for the prediction vector for the Assigment Submission</h2>
 
 <pre><code class="r">answers &lt;- predict(modelFit, testSet)
-</code></pre>
-
-<pre><code>## Error: object &#39;modelFit&#39; not found
 </code></pre>
 
 </body>

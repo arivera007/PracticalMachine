@@ -45,13 +45,40 @@ testSet <- cleanTest[, -removeIndex]
 
 ```r
 mytrControl = trainControl(method = "cv", number = 4)
-# modelFit <- train(trainSet$classe ~.,data = trainSet, method='rf',
-# trControl = mytrControl)
+modelFit <- train(trainSet$classe ~ ., data = trainSet, method = "rf", trControl = mytrControl)
+```
+
+```
+## Loading required package: randomForest
+## randomForest 4.6-7
+## Type rfNews() to see new features/changes/bug fixes.
+```
+
+```r
 modelFit
 ```
 
 ```
-## Error: object 'modelFit' not found
+## Random Forest 
+## 
+## 13737 samples
+##    53 predictors
+##     5 classes: 'A', 'B', 'C', 'D', 'E' 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (4 fold) 
+## 
+## Summary of sample sizes: 10301, 10303, 10303, 10304 
+## 
+## Resampling results across tuning parameters:
+## 
+##   mtry  Accuracy  Kappa  Accuracy SD  Kappa SD
+##   2     1         1      0.003        0.003   
+##   30    1         1      0.001        0.002   
+##   50    1         1      8e-04        0.001   
+## 
+## Accuracy was used to select the optimal model using  the largest value.
+## The final value used for the model was mtry = 27.
 ```
 
 
@@ -60,39 +87,16 @@ modelFit
 
 ```r
 predicted <- predict(modelFit, crossValidationSet)
-```
-
-```
-## Error: object 'modelFit' not found
-```
-
-```r
 SampleError <- sum(predicted == crossValidationSet$classe)/nrow(crossValidationSet)
 ```
 
-```
-## Error: object 'predicted' not found
-```
-
-### So the Out of Sample Error we get is: 
-
-```
-
-Error in eval(expr, envir, enclos) : object 'SampleError' not found
-
-```
-
-
+So the Out of Sample Error we get is: 0.9981
 
 
 ## Generating data for the prediction vector for the Assigment Submission
 
 ```r
 answers <- predict(modelFit, testSet)
-```
-
-```
-## Error: object 'modelFit' not found
 ```
 
 
